@@ -19,7 +19,15 @@ def clean_text(text):
     text = str(text).lower()
     text = re.sub(r'\d+', '', text)
     text = re.sub(r'[^\w\s]', '', text)
+    text = str(text).lower()  # lowercase
+    text = re.sub(r'\d+', '', text)  # hapus angka
+    text = re.sub(r'\[.*?\]', '', text)  # hapus teks dalam []
+    text = re.sub(r'https?://\S+|www\.\S+', '', text)  # hapus link
+    text = re.sub(r'<.*?>+', '', text)  # hapus HTML tag
+    text = re.sub(r'[^\w\s]', '', text)  # hapus tanda baca
+    text = ' '.join([word for word in text.split() if word not in stop_words])  # hapus stopwords
     return text
+
 
 # Fungsi sentimen berdasarkan kamus
 def get_sentiment_kamus(text):
